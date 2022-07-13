@@ -1,6 +1,16 @@
+import { useRouter } from "next/router"
+import { useEffect } from "react"
 import logout from "../functions/logout"
+import useAuth from "../hooks/useAuth"
 
 const Sidebar = () => {
+
+    const router = useRouter()
+    
+    useEffect(() => {
+        useAuth(router)   
+    })
+
     return (
         <>
             <div className="flex flex-shrink flex-col py-4 px-3 bg-gray-50 rounded">

@@ -22,8 +22,6 @@ const Dashboard: NextPage<DashboardProps> = ({ page }: DashboardProps) => {
     const [maxPage, setMaxPage] = useState<number>(0)
 
     useEffect(() => {
-        useAuth(router)
-
         if(!page) {
             router.push('?page='+currentPage)
         }
@@ -104,6 +102,6 @@ export async function getServerSideProps(context: any) {
         page: currentPage
       }
     }
-  }
+}
 
 export default Dashboard

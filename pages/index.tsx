@@ -29,10 +29,8 @@ const Home: NextPage = () => {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    
-    const formIsValid = validateForm()
-    
-    if(!formIsValid) {
+
+    if(!validateForm()) {
       return
     }
 
@@ -44,7 +42,6 @@ const Home: NextPage = () => {
     }).finally(() => {
       setIsLoading(false)
     })
-
   }
 
   return (
