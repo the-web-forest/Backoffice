@@ -18,7 +18,7 @@ export default class HttpService {
         return this.axios.post(uri, payload)
     }
 
-    public get(uri: string, args: any) {
+    public get(uri: string, args?: any) {
         return this.axios.get(uri, {
             params: args
         })

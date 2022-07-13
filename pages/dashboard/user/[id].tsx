@@ -20,10 +20,9 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
 
     useEffect(() => {
         userDetailUseCase.run(id).then(data => {
-            console.log(data)
             setUser(data)
         })
-    })
+    }, [])
 
     return (
         <>
@@ -32,7 +31,7 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
                 <Sidebar />
                 <div className='flex flex-col w-screen m-5'>
                     <div className='flex flex-row w-100 p-2 justify-between'>
-                        <p className='text-4xl font-bold'>User Detail - {user.name}</p>
+                        <p className='text-4xl font-bold'>User Details - {user.name}</p>
                     </div>
 
                     <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-3 h-auto mb-5">
