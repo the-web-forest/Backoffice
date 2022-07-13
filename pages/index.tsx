@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { FormEvent, FormEventHandler, InputHTMLAttributes, useState } from 'react'
 import LoginUseCase from '../useCases/loginUseCase/loginUseCase'
 import LoginDto from '../dtos/login.dto'
+import Header from '../sections/header'
 
 const loginUseCase = new LoginUseCase()
 
@@ -48,6 +49,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="min-h-screen main-bg grid place-items-center h-screen">
+    <Header title="Login"/>
     <form onSubmit={handleSubmit} className="h-auto w-80 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <img src="/images/logo-horizontal.svg" alt="Logo @ Web Forest" width='80%' className='m-auto mb-5' />
       <div className="mb-4">

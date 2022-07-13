@@ -6,6 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 import Sidebar from "../../../sections/sidebar";
 import ListUserUseCase from "../../../useCases/listUserUseCase/listUserUseCase";
 import { UserList } from "../../../dtos/listUserResponse";
+import Header from "../../../sections/header";
 
 const listUserUseCase = new ListUserUseCase()
 
@@ -38,6 +39,7 @@ const Dashboard: NextPage<DashboardProps> = ({ page }: DashboardProps) => {
     return (
         <>
             <div className='w-screen h-screen flex'>
+                <Header title="Users" />
                 <Sidebar />
                 <div className='flex flex-col w-screen m-5'>
                     <div className='flex flex-row w-100 p-2 justify-between'>

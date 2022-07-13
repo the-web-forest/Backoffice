@@ -1,10 +1,12 @@
 import { NextPage } from "next";
+import Header from "../../../sections/header";
 import Sidebar from "../../../sections/sidebar";
 
 const Dashboard: NextPage = () => {
     return (
 
         <div className='w-screen h-screen flex'>
+            <Header title="Trees" />
             <Sidebar />
             <div className='flex flex-col w-screen m-5'>
                 <div className='flex flex-row w-100 p-2 justify-between'>
