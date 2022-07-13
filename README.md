@@ -1,23 +1,43 @@
-# Next.js + Tailwind CSS Example
+<p  align="center">
+<a  href="https://www.webforest.eco/" target="blank"><img  src="https://www.webforest.eco/images/logo.svg"  width="200"  alt="WebForest Logo"/></a>
+</p>
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+<p  align="center">A collection of microservices that supports the Web Forest ecosystem.</p>
 
-## Deploy your own
+## Philosophy 🌳
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+Web Forest is a NGO, our goal is straightforward: We want to improve the world using technology and ecology.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+To achieve our objective we develop a gamified platform that allows the users to plant trees in real-world 100% online using their credit card. Got confused? I will explain!
 
-## How to use
+When our project V1 gets ready you will be able to create an account in Web Forest platform and create your own custom virtual forest with your name or nickname.
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+You will get access to a lot of virtual trees and you will buy them and plant them with less than 5 clicks. With the purpose of your tree being unique, you will be able to customize your tree by giving a name and a description.
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-# or
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-# or
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
+And how the virtual trees will be transformed into real trees? This is easy! By the end of every month, we will repass the raised money to others NGOs that plant real trees. This process will convert virtual trees into real trees.
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+  
+
+Did you like the project? Consider supporting us: [Click Here](http://apoie.webforest.eco)
+
+  
+
+## Description 🌲
+
+**Backoffice** is our main admnistrator panel repository.
+
+## Our Stack 💻
+
+  
+
+We currently use the following technologies:
+
+- [.NextJS](https://nextjs.org/)
+- [Vercel](https://vercel.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+  
+## Stay in touch 📧
+
+- Website - https://www.webforest.eco
+- Instagram - [@web_forest](https://www.instagram.com/web_forest/)
+- Email - [contato@webforest.eco](mailto:contato@webforest.eco)
