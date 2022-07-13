@@ -1,0 +1,7 @@
+const SESSION_STORAGE_KEYS = {
+    USER_NAME: 'USER_NAME',
+    TOKEN_TYPE: 'TOKEN_TYPE',
+    TOKEN: 'TOKEN'
+}
+
+export default SESSION_STORAGE_KEYS

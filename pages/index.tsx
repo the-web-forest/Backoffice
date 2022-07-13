@@ -1,85 +1,78 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { FormEvent, FormEventHandler, InputHTMLAttributes, useState } from 'react'
+import LoginUseCase from '../useCases/loginUseCase/loginUseCase'
+import LoginDto from '../dtos/login.dto'
+
+const loginUseCase = new LoginUseCase()
 
 const Home: NextPage = () => {
+
+  const router = useRouter()
+  const [form, setForm] = useState<LoginDto>(new LoginDto())
+  const [error, setError] = useState<string>("")
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const validateForm = async (): Promise<boolean> => {
+    
+    setError('')
+    
+    if(!form.email || !form.password) {
+      setError('Fill all fields')
+      return false
+    }
+
+    return true
+  
+  }
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    
+    const formIsValid = validateForm()
+    
+    if(!formIsValid) {
+      return
+    }
+
+    setIsLoading(true)
+    loginUseCase.run(form).then(success => {
+      router.push('/dashboard/user')
+    }).catch(err => {
+      setError('Invalid username or password')
+    }).finally(() => {
+      setIsLoading(false)
+    })
+
+  }
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div className="min-h-screen main-bg grid place-items-center h-screen">
+    <form onSubmit={handleSubmit} className="h-auto w-80 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <img src="/images/logo-horizontal.svg" alt="Logo @ Web Forest" width='80%' className='m-auto mb-5' />
+      <div className="mb-4">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+            Email
+          </label>
+          <input name="email" value={form?.email} onChange={(e) => setForm({ ...form, email: e.target.value })}  autoComplete='current-email' className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Email"/>
+      </div>
+       
+      <div className="mb-6">
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
+            Password
+          </label>
+          <input name="password" value={form?.password} onChange={(e) => setForm({ ...form, password: e.target.value })} autoComplete='current-password' className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" placeholder="******************"/>
+          <p className="text-red-500 text-xs italic">{error}</p>
+      </div>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
+      <div className="items-center justify-between">
+        <button disabled={isLoading} className="bg-wf-1 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+          {isLoading ? 'Carregando' : 'Login'}
+        </button>
+      </div>
+      
+    </form>
+  </div>
   )
 }
 
