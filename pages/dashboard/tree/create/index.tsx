@@ -151,7 +151,7 @@ const DashboardUserDetails: NextPage = () => {
                                     </label>
                                     
                                     <img 
-                                        className="w-60 h-60 rounded-md cursor-pointer border-gray-300 border-2" 
+                                        className="w-60 h-60 rounded-md cursor-pointer border-gray-300 border" 
                                         srcSet={tree.image || '/images/tree-placeholder.png'}
                                         onClick={e => handleClick(e)}
                                     />

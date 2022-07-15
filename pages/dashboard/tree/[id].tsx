@@ -204,12 +204,12 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
                                 </div>
 
                                 <div className='w-1/2 m-5'>
-                                    <label className="block text-sm font-bold text-gray-700" htmlFor="description">
+                                    <label className="block text-sm font-bold text-gray-700 mb-5" htmlFor="description">
                                         Image (click to change)
                                     </label>
                                     
                                     <img 
-                                        className="w-60 h-60 border-r-2 rounded-md cursor-pointer border-gray-300 border-2" 
+                                        className="w-60 h-60 border-r-2 rounded-md cursor-pointer border-gray-300 border" 
                                         srcSet={tree.image}
                                         onClick={e => handleClick(e)}
                                     />
