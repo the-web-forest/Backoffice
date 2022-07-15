@@ -43,7 +43,7 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
                                         ID
                                     </label>
                                     <input
-                                        className="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                        className="bg-slate-100 block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                         type="text"
                                         disabled={true}
                                         value={user.id}
@@ -55,7 +55,7 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
                                         Name
                                     </label>
                                     <input
-                                        className="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                        className="bg-slate-100 block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                         type="text"
                                         disabled={true}
                                         value={user.name}
@@ -71,7 +71,7 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
                                         id='email'
                                         disabled={true}
                                         value={user.email}
-                                        className="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                        className="bg-slate-100 block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                         type="text"
                                         name="email" />
                                 </div>
@@ -85,7 +85,7 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
                                         disabled={true}
                                         id='email-verified'
                                         value={user.emailVerified ? 'Yes' : 'No'}
-                                        className="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                        className="bg-slate-100 block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                         type="text"
                                         name="email-verified"
                                     />
@@ -103,7 +103,7 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
                                         disabled={true}
                                         id='city'
                                         value={user.city}
-                                        className="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                        className="bg-slate-100 block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                         type="text"
                                         name="city" />
                                 </div>
@@ -117,7 +117,7 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
                                         disabled={true}
                                         id='state'
                                         value={user.state}
-                                        className="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                        className="bg-slate-100 block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                         type="text"
                                         name="state" />
                                 </div>
@@ -130,8 +130,8 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
                                     <input
                                         disabled={true}
                                         id='created-at'
-                                        value={user?.createdAt?.toString() ?? ''}
-                                        className="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                        value={new Date(user?.createdAt).toLocaleString('pt-BR')}
+                                        className="bg-slate-100 block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                         type="text"
                                         name="created-at"
                                     />
@@ -145,8 +145,8 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
                                     <input
                                         disabled={true}
                                         id='updated-at'
-                                        value={user?.updatedAt?.toString() ?? ''}
-                                        className="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                        value={new Date(user?.updatedAt).toLocaleString('pt-BR')}
+                                        className="bg-slate-100 block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                         type="text"
                                         name="updated-at"
                                     />
