@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useRef, useState } from "react";
 import TreeDetailDTO from "../../../../dtos/tree/detail/treeDetail.dto";
 import CurrencyHelper from "../../../../helpers/currencyHelper";
 import NotificationService from "../../../../helpers/NotificationService";
@@ -15,6 +15,7 @@ const DashboardUserDetails: NextPage = () => {
     const router = useRouter()
     const [tree, setTree] = useState<TreeDetailDTO>(new TreeDetailDTO({}))
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const imgInput = useRef<any>()
 
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -32,6 +33,30 @@ const DashboardUserDetails: NextPage = () => {
             NotificationService.dangerNotification('Error!', err.Message)
         })
         
+    }
+
+    const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
+        const  convertBase64 = (file: any) => {
+            return new Promise((resolve, reject) => {
+              const fileReader = new FileReader();
+              fileReader.readAsDataURL(file)
+              fileReader.onload = () => {
+                resolve(fileReader.result);
+              }
+              fileReader.onerror = (error) => {
+                reject(error);
+              }
+            })
+          }
+        
+        // @ts-ignore
+        const file = event.target?.files[0]
+        const base64 = await convertBase64(file) as string
+        setTree({ ...tree, image: base64 })
+    }
+
+    const handleClick = (event: any) => {
+        imgInput.current.click()
     }
 
     return (
@@ -116,6 +141,30 @@ const DashboardUserDetails: NextPage = () => {
                                     >
 
                                     </textarea>
+
+                                </div>
+
+                                <div className='w-1/2 m-5'>
+                                    
+                                    <label className="block text-sm font-bold text-gray-700 mb-5" htmlFor="description">
+                                    Image (click to upload)
+                                    </label>
+                                    
+                                    <img 
+                                        className="w-60 h-60 rounded-md cursor-pointer border-gray-300 border-2" 
+                                        srcSet={tree.image || '/images/tree-placeholder.png'}
+                                        onClick={e => handleClick(e)}
+                                    />
+                                    
+                                    <input 
+                                        onChange={(e) => handleImageChange(e)} 
+                                        type="file" 
+                                        src="" 
+                                        alt="" 
+                                        className="hidden"
+                                        ref={imgInput}
+                                        required={true}
+                                    />
 
                                 </div>
 

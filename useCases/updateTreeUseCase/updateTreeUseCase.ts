@@ -11,12 +11,15 @@ export default class UpdateTreeUseCase {
 
     public async run(tree: TreeDetailDTO) {
        
+        const hasNewImage = !this.isValidUrl(tree.image)
+
         const request = this.httpService.put(`Trees`, {
             id: tree.id,
             name: tree.name,
             description: tree.description,
             value: tree.value,
-            biome: tree.biome
+            biome: tree.biome,
+            image: hasNewImage ? tree.image : null
         })
 
         const response = await request
@@ -29,6 +32,16 @@ export default class UpdateTreeUseCase {
 
         return Promise.resolve(response.data)
 
+    }
+
+    private isValidUrl(urlString: string): boolean {
+        try { 
+            const url = new URL(urlString);
+            return url.origin !== 'null'; 
+        }
+        catch(e){ 
+            return false; 
+        }
     }
 
 

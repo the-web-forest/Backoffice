@@ -5,6 +5,7 @@ export default class TreeDetailDTO {
     public description!: string
     public value!: number
     public biome!: string
+    public image!: string
     public createdAt!: Date
     public updatedAt!: Date
 

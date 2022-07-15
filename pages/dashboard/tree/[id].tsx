@@ -1,6 +1,5 @@
 import { NextPage } from "next";
-import { useRouter } from "next/router";
-import { FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import Sidebar from "../../../sections/sidebar";
 import Header from "../../../sections/header";
 import TreeDetailUseCase from "../../../useCases/treeDetailUseCase/treeDetailUseCase";
@@ -20,6 +19,7 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
 
     const [tree, setTree] = useState<TreeDetailDTO>(new TreeDetailDTO({}))
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const imgInput = useRef<any>()
 
     const updateTree = () => {
         treeDetailUseCase.run(id).then(data => {
@@ -42,6 +42,30 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
             NotificationService.dangerNotification('Error!', err.Message)
         }).finally(() => setIsLoading(false))
         
+    }
+
+    const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
+        const  convertBase64 = (file: any) => {
+            return new Promise((resolve, reject) => {
+              const fileReader = new FileReader();
+              fileReader.readAsDataURL(file)
+              fileReader.onload = () => {
+                resolve(fileReader.result);
+              }
+              fileReader.onerror = (error) => {
+                reject(error);
+              }
+            })
+          }
+        
+        // @ts-ignore
+        const file = event.target?.files[0]
+        const base64 = await convertBase64(file) as string
+        setTree({ ...tree, image: base64 })
+    }
+
+    const handleClick = (event: any) => {
+        imgInput.current.click()
     }
 
     useEffect(() => {
@@ -176,6 +200,28 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
                                     >
 
                                     </textarea>
+
+                                </div>
+
+                                <div className='w-1/2 m-5'>
+                                    <label className="block text-sm font-bold text-gray-700" htmlFor="description">
+                                        Image (click to change)
+                                    </label>
+                                    
+                                    <img 
+                                        className="w-60 h-60 border-r-2 rounded-md cursor-pointer border-gray-300 border-2" 
+                                        srcSet={tree.image}
+                                        onClick={e => handleClick(e)}
+                                    />
+                                    
+                                    <input 
+                                        onChange={(e) => handleImageChange(e)} 
+                                        type="file" 
+                                        src="" 
+                                        alt="" 
+                                        className="hidden"
+                                        ref={imgInput}
+                                    />
 
                                 </div>
 

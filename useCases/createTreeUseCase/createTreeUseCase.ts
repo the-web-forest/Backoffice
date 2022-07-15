@@ -15,7 +15,8 @@ export default class CreateTreeUseCase {
             name: tree.name,
             description: tree.description,
             value: tree.value,
-            biome: tree.biome
+            biome: tree.biome,
+            image: tree.image
         })
 
         const response = await request
