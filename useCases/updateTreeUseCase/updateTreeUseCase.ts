@@ -24,7 +24,7 @@ export default class UpdateTreeUseCase {
             .catch(err => err.response)
 
         if(response.status != 200) {
-            return Promise.reject(response.response.data)
+            return Promise.reject(response.data)
         }
 
         return Promise.resolve(response.data)

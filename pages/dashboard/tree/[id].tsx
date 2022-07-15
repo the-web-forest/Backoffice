@@ -39,7 +39,7 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
             NotificationService.successNotification('Success!', 'Tree Updated Successfully')
             updateTree()
         }).catch(err => {
-            NotificationService.dangerNotification('Error!', 'Error on Update Tree')
+            NotificationService.dangerNotification('Error!', err.Message)
         }).finally(() => setIsLoading(false))
         
     }
