@@ -22,6 +22,10 @@ export default class HttpService {
         return this.axios.put(uri, payload)
     }
 
+    public delete<I>(uri: string) {
+        return this.axios.delete(uri)
+    }
+
     public get(uri: string, args?: any) {
         return this.axios.get(uri, {
             params: args

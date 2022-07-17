@@ -10,9 +10,9 @@ export default class TreeDetailUseCase {
         this.httpService = new HttpService()
     }
 
-    public async run(userId: string): Promise<TreeDetailDTO> {
+    public async run(treeId: string): Promise<TreeDetailDTO> {
        
-        const request = await this.httpService.get(`Trees/${userId}`)
+        const request = await this.httpService.get(`Trees/${treeId}`)
 
         if(request.status != 200) {
             return Promise.reject()

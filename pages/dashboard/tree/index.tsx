@@ -7,8 +7,11 @@ import Header from "../../../sections/header";
 import ListTreeUseCase from "../../../useCases/listTreeUseCase/listTreeUseCase";
 import { TreeList } from "../../../dtos/tree/listTreeResponse";
 import CurrencyHelper from "../../../helpers/currencyHelper";
+import DeleteTreeUseCase from "../../../useCases/deleteTreeUseCase/deleteTreeUsecase";
+import NotificationService from "../../../helpers/NotificationService";
 
 const listUserUseCase = new ListTreeUseCase()
+const deleteTreeUseCase = new DeleteTreeUseCase()
 
 interface DashboardTreeProps {
     page: number
@@ -24,23 +27,37 @@ const Dashboard: NextPage<DashboardTreeProps> = ({ page }: DashboardTreeProps) =
 
     const [treeToDelete, setTreeToDelete] = useState<TreeList>()
 
-    useEffect(() => {
-        if (!page) {
-            router.push('?page=' + currentPage)
-        }
-
+    const loadTrees = () => {
         listUserUseCase.run(currentPage).then(data => {
             setCurrentPage(data.currentPage)
             setRows(data.trees)
             setMaxPage(data.totalPages)
         })
+    }
+
+    useEffect(() => {
+        if (!page) {
+            router.push('?page=' + currentPage)
+        }
+
+        loadTrees()
 
     }, [])
 
-    const deleteTree = (treeId: string) => {
+    const openDeleteTreeModal = (treeId: string) => {
         const tree = rows.find(x => x.id === treeId)
         setTreeToDelete(tree)
         setShowModal(true)
+    }
+
+    const deleteTree = (treeId: string) => {
+        deleteTreeUseCase.run(treeId).then(res => {
+            NotificationService.successNotification('Deleted!', 'Tree Deleted Sucessfully!')
+            loadTrees()
+            setShowModal(false)
+        }).catch(err => {
+            NotificationService.dangerNotification('Error!', 'Error on Delete Tree!')
+        })
     }
 
     return (
@@ -91,7 +108,7 @@ const Dashboard: NextPage<DashboardTreeProps> = ({ page }: DashboardTreeProps) =
                                             <button
                                                 className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                 type="button"
-                                                onClick={() => setShowModal(false)}
+                                                onClick={() => deleteTree(treeToDelete!.id)}
                                             >
                                                 Delete
                                             </button>
@@ -148,7 +165,7 @@ const Dashboard: NextPage<DashboardTreeProps> = ({ page }: DashboardTreeProps) =
                                                 <a href={`/dashboard/tree/${x.id}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
                                             </td>
                                             <td className="py-4 px-6 text-right">
-                                                <a onClick={() => deleteTree(x.id)} className="cursor-pointer font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
+                                                <a onClick={() => openDeleteTreeModal(x.id)} className="cursor-pointer font-medium text-red-600 dark:text-red-500 hover:underline">Delete</a>
                                             </td>
                                         </tr>
                                     )
