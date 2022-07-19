@@ -123,7 +123,7 @@ const Dashboard: NextPage<DashboardTreeProps> = ({ page }: DashboardTreeProps) =
 
                     <div className='flex flex-row w-100 p-2 justify-between'>
                         <p className='text-4xl font-bold'>Trees</p>
-                        <button className="bg-wf-1 text-white py-1 px-4 rounded">
+                        <button onClick={() => router.push('/dashboard/tree/create')}  className="bg-wf-1 text-white py-1 px-4 rounded">
                             <a href="/dashboard/tree/create">New Tree</a>
                         </button>
                     </div>

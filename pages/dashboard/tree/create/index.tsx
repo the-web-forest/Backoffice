@@ -85,7 +85,9 @@ const DashboardUserDetails: NextPage = () => {
                                         type="text"
                                         onChange={e => setTree({ ...tree, name: e.target.value })}
                                         value={tree.name}
-                                        name="name" />
+                                        name="name" 
+                                        maxLength={50}
+                                    />
                                 </div>
 
                                 <div className='w-1/4 m-5'>
@@ -100,6 +102,7 @@ const DashboardUserDetails: NextPage = () => {
                                         value={tree.biome}
                                         name="biome"
                                         id="biome"
+                                        maxLength={50}
                                     />
                                 </div>
 
