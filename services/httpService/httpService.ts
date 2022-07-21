@@ -10,7 +10,7 @@ export default class HttpService {
 
     constructor() {
         this.axios = axios
-        this.axios.defaults.baseURL = Settings.baseApiUrl
+        this.axios.defaults.baseURL = Settings.get().apiUri()
         this.axios.defaults.headers.common['Authorization'] = getAuthToken()
     }
 
