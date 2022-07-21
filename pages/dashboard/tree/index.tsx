@@ -63,7 +63,7 @@ const Dashboard: NextPage<DashboardTreeProps> = ({ page }: DashboardTreeProps) =
     return (
         <>
             <div className='w-screen h-screen flex'>
-                <Header title="Users" />
+                <Header title="Trees" />
                 <Sidebar />
                 <div className='flex flex-col w-screen m-5'>
 

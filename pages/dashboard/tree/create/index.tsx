@@ -20,8 +20,12 @@ const DashboardUserDetails: NextPage = () => {
     const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         
-        if(tree.value <= 0) {
+        if(!tree.value || tree.value <= 0) {
             return NotificationService.dangerNotification('Error!', 'Tree value must be positive')
+        }
+
+        if(!tree.image) {
+            return NotificationService.dangerNotification('Error!', 'You should select a tree image')
         }
 
         setIsLoading(true)
@@ -162,11 +166,10 @@ const DashboardUserDetails: NextPage = () => {
                                     <input 
                                         onChange={(e) => handleImageChange(e)} 
                                         type="file" 
-                                        src="" 
-                                        alt="" 
                                         className="hidden"
                                         ref={imgInput}
-                                        required={true}
+                                        name="image-hidden"
+                                        accept="image/*"
                                     />
 
                                 </div>
