@@ -6,9 +6,14 @@ interface HeaderProps {
 }
 
 const Header = ({ title }: HeaderProps) => {
+
+    const isDevelopment = Settings.get().isDevelopment()
+    const firstTitle = title ? `${title} - ${Settings.get().appName()}` : Settings.get().appName()
+    const finalTitle = isDevelopment ? `[DEV] ${firstTitle}` : firstTitle
+
     return (
         <Head>
-            <title>{(title ? `${title} - ${Settings.get().appName()}` : `${Settings.get().appName()}`)}</title>
+            <title>{finalTitle}</title>
         </Head>
     )
 }
