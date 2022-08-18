@@ -6,7 +6,7 @@ const useAuth = (router: NextRouter): void => {
     const sessionStorageService = new SessionStorageService()
     const authToken = sessionStorageService.getItem(SESSION_STORAGE_KEYS.TOKEN)
    
-    if(!!authToken == false) {
+    if(!!!authToken) {
         router.push('/')
     }
 }

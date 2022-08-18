@@ -1,5 +1,4 @@
 import TreeDetailDTO from "../../dtos/tree/detail/treeDetail.dto"
-import UserDetailDTO from "../../dtos/user/detail/userDetail.dto"
 import HttpService from "../../services/httpService/httpService"
 
 export default class TreeDetailUseCase {

@@ -1,4 +1,3 @@
-import next from "next"
 import { useEffect, useState } from "react"
 
 interface PaginatorProps {

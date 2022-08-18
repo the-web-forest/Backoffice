@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { ChangeEvent, ChangeEventHandler, FormEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import TreeDetailDTO from "../../../../dtos/tree/detail/treeDetail.dto";
 import CurrencyHelper from "../../../../helpers/currencyHelper";
 import NotificationService from "../../../../helpers/NotificationService";

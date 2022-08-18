@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { FormEvent, FormEventHandler, InputHTMLAttributes, useState } from 'react'
+import { FormEvent, useState } from 'react'
 import LoginUseCase from '../useCases/loginUseCase/loginUseCase'
 import LoginDto from '../dtos/login.dto'
 import Header from '../sections/header'
