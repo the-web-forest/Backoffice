@@ -7,6 +7,7 @@ import NotificationService from "../../../../helpers/NotificationService";
 import Header from "../../../../sections/header";
 import Sidebar from "../../../../sections/sidebar";
 import CreateTreeUseCase from "../../../../useCases/createTreeUseCase/createTreeUseCase";
+import handleImageChange from "../functions/handleImageChange";
 
 const createTreeUseCase = new CreateTreeUseCase()
 
@@ -37,26 +38,6 @@ const DashboardUserDetails: NextPage = () => {
             NotificationService.dangerNotification('Error!', err.Message)
         })
         
-    }
-
-    const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
-        const  convertBase64 = (file: any) => {
-            return new Promise((resolve, reject) => {
-              const fileReader = new FileReader();
-              fileReader.readAsDataURL(file)
-              fileReader.onload = () => {
-                resolve(fileReader.result);
-              }
-              fileReader.onerror = (error) => {
-                reject(error);
-              }
-            })
-          }
-        
-        // @ts-ignore
-        const file = event.target?.files[0]
-        const base64 = await convertBase64(file) as string
-        setTree({ ...tree, image: base64 })
     }
 
     const handleClick = (event: any) => {
@@ -164,7 +145,7 @@ const DashboardUserDetails: NextPage = () => {
                                     />
                                     
                                     <input 
-                                        onChange={(e) => handleImageChange(e)} 
+                                        onChange={(e) => handleImageChange(e, tree, setTree)} 
                                         type="file" 
                                         className="hidden"
                                         ref={imgInput}
