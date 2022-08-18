@@ -1,6 +1,6 @@
 export default class Settings {
 
-    private applicationName = 'Backoffice - Web Forest'
+    private applicationName = 'BKO @ Web Forest'
     private apiUrlDev = 'https://api.dev.webforest.eco/samauma/'
     private apiUrlPrd = 'https://api.webforest.eco/samauma/'
    
