@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Paginator from "../../../components/paginator/paginator";
-import useAuth from "../../../hooks/useAuth";
 import Sidebar from "../../../sections/sidebar";
 import ListUserUseCase from "../../../useCases/listUserUseCase/listUserUseCase";
 import { UserList } from "../../../dtos/listUserResponse";
