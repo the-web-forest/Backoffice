@@ -1,9 +1,6 @@
-import axios, { Axios, AxiosStatic } from "axios";
+import axios, { AxiosStatic } from "axios";
 import Settings from "../../core/settings";
-import SESSION_STORAGE_KEYS from "../sessionStorage/sessionStorageKeys";
-import SessionStorageService from "../sessionStorage/sessionStorageService";
 import getAuthToken from "./helpers/getAuthToken";
-
 export default class HttpService {
 
     private axios: AxiosStatic
