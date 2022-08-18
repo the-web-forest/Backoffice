@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import Sidebar from "../../../sections/sidebar";
 import Header from "../../../sections/header";
 import TreeDetailUseCase from "../../../useCases/treeDetailUseCase/treeDetailUseCase";
