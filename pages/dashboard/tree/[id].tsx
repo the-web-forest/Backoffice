@@ -7,7 +7,7 @@ import TreeDetailDTO from "../../../dtos/tree/detail/treeDetail.dto";
 import CurrencyHelper from "../../../helpers/currencyHelper";
 import UpdateTreeUseCase from "../../../useCases/updateTreeUseCase/updateTreeUseCase";
 import NotificationService from "../../../helpers/NotificationService";
-import handleImageChange from "./functions/handleImageChange";
+import handleImageChange from "../../../functions/handleImageChange";
 
 const treeDetailUseCase = new TreeDetailUseCase()
 const updateTreeUseCase = new UpdateTreeUseCase()
