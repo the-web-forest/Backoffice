@@ -1,15 +1,17 @@
 import { useRouter } from "next/router"
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import logout from "../functions/logout"
-import useAuth from "../hooks/useAuth"
+import checkAuth from "../hooks/useAuth"
 
 const Sidebar = () => {
 
     const router = useRouter()
     
+    const callAuth = useCallback(() =>  checkAuth(router), [])
+
     useEffect(() => {
-        useAuth(router)   
-    })
+        callAuth()
+    }, [])
 
     return (
         <>

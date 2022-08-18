@@ -1,11 +1,9 @@
 import { NextPage } from "next";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Sidebar from "../../../sections/sidebar";
 import Header from "../../../sections/header";
 import UserDetailDTO from "../../../dtos/user/detail/userDetail.dto";
 import UserDetailUseCase from "../../../useCases/userDetailUseCase/userDetailUseCase";
-import { format } from 'date-fns'
 
 const userDetailUseCase = new UserDetailUseCase()
 
@@ -15,8 +13,7 @@ interface DashboardUserDetailsProps {
 
 const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: DashboardUserDetailsProps) => {
 
-    const router = useRouter()
-    const [user, setUser] = useState<UserDetailDTO>(new UserDetailDTO({}))
+const [user, setUser] = useState<UserDetailDTO>(new UserDetailDTO({}))
 
     useEffect(() => {
         userDetailUseCase.run(id).then(data => {
