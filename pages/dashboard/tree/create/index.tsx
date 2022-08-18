@@ -7,7 +7,7 @@ import NotificationService from "../../../../helpers/NotificationService";
 import Header from "../../../../sections/header";
 import Sidebar from "../../../../sections/sidebar";
 import CreateTreeUseCase from "../../../../useCases/createTreeUseCase/createTreeUseCase";
-import handleImageChange from "../functions/handleImageChange";
+import handleImageChange from "../../../../functions/handleImageChange";
 
 const createTreeUseCase = new CreateTreeUseCase()
 
