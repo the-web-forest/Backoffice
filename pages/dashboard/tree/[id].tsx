@@ -7,6 +7,7 @@ import TreeDetailDTO from "../../../dtos/tree/detail/treeDetail.dto";
 import CurrencyHelper from "../../../helpers/currencyHelper";
 import UpdateTreeUseCase from "../../../useCases/updateTreeUseCase/updateTreeUseCase";
 import NotificationService from "../../../helpers/NotificationService";
+import handleImageChange from "./functions/handleImageChange";
 
 const treeDetailUseCase = new TreeDetailUseCase()
 const updateTreeUseCase = new UpdateTreeUseCase()
@@ -46,26 +47,6 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
             NotificationService.dangerNotification('Error!', err.Message)
         }).finally(() => setIsLoading(false))
         
-    }
-
-    const handleImageChange = async (event: ChangeEvent<HTMLInputElement>) => {
-        const  convertBase64 = (file: any) => {
-            return new Promise((resolve, reject) => {
-              const fileReader = new FileReader();
-              fileReader.readAsDataURL(file)
-              fileReader.onload = () => {
-                resolve(fileReader.result);
-              }
-              fileReader.onerror = (error) => {
-                reject(error);
-              }
-            })
-          }
-        
-        // @ts-ignore
-        const file = event.target?.files[0]
-        const base64 = await convertBase64(file) as string
-        setTree({ ...tree, image: base64 })
     }
 
     const handleClick = (event: any) => {
@@ -222,7 +203,7 @@ const DashboardUserDetails: NextPage<DashboardUserDetailsProps> = ({ id }: Dashb
                                     />
                                     
                                     <input 
-                                        onChange={(e) => handleImageChange(e)} 
+                                        onChange={(e) => handleImageChange(e, tree, setTree)} 
                                         type="file" 
                                         className="hidden"
                                         ref={imgInput}
