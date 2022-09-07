@@ -141,8 +141,6 @@ const DashboardUserDetails: NextPage = () => {
 										</label>
 
 										<TextEditor
-											required={true}
-											name="description"
 											id="description"
 											className="block h-52 w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 resize-none"
 											value={tree.description}

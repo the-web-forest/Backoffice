@@ -6,18 +6,16 @@ import TreeDetailDTO from '../../dtos/tree/detail/treeDetail.dto';
 const ReactQuill = dynamic(() => import('react-quill'), {ssr: false})
 
 interface TextEditorProps {
-	required: boolean;
-	name: string;
 	id: string;
 	className: string;
     value: string;
     onChange : Function;
 }
 
-const TextEditor = ({ required, name, id, className, value, onChange } : TextEditorProps) => {
+const TextEditor = ({ id, className, value, onChange } : TextEditorProps) => {
 	return (
 		<>
-			<ReactQuill required={required} name={name} id={id} className={className} theme="snow" value={value} onChange={(e)=> onChange(e)}></ReactQuill>
+			<ReactQuill id={id} className={className} theme="snow" value={value} onChange={(e)=> onChange(e)}></ReactQuill>
 		</>
 	);
 };
