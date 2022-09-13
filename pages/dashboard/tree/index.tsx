@@ -174,7 +174,7 @@ const Dashboard: NextPage<DashboardTreeProps> = ({ page }: DashboardTreeProps) =
                             </tbody>
                         </table>
                     </div>
-                    <Paginator path={'/dashboard/tree'} currentPage={currentPage} maxItems={25} maxPage={maxPage} />
+                    <Paginator path={'/dashboard/tree'} currentPage={currentPage} maxItems={5} maxPage={maxPage} />
                 </div>
 
             </div>
