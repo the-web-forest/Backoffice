@@ -14,7 +14,7 @@ interface TextEditorProps {
 const TextEditor = ({ id, className, value, onChange } : TextEditorProps) => {
 	return (
 		<>
-			<ReactQuill id={id} className={className} theme="snow" value={value} onChange={(e)=> onChange(e)}></ReactQuill>
+			<ReactQuill id={id} className={className} theme="snow" value={value} onChange={(e)=> {if (value) onChange(e)}}></ReactQuill>
 		</>
 	);
 };
