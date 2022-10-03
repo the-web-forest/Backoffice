@@ -6,7 +6,7 @@ import CurrencyHelper from "../../../../helpers/currencyHelper";
 import NotificationService from "../../../../helpers/NotificationService";
 import Header from "../../../../sections/header";
 import Sidebar from "../../../../sections/sidebar";
-import CreateTreeUseCase from "../../../../useCases/createTreeUseCase/createTreeUseCase";
+import CreateTreeUseCase from "../../../../useCases/treeUseCases/createTreeUseCase/createTreeUseCase";
 import handleImageChange from "../../../../functions/handleImageChange";
 import TextEditor from "../../../../components/textEditor/textEditor";
 

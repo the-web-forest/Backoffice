@@ -1,5 +1,5 @@
-import TreeDetailDTO from "../../dtos/tree/detail/treeDetail.dto"
-import HttpService from "../../services/httpService/httpService"
+import TreeDetailDTO from "../../../dtos/tree/detail/treeDetail.dto"
+import HttpService from "../../../services/httpService/httpService"
 
 export default class UpdateTreeUseCase {
 

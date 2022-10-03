@@ -1,4 +1,4 @@
-import HttpService from "../../services/httpService/httpService"
+import HttpService from "../../../services/httpService/httpService"
 
 export default class DeleteTreeUseCase {
 
