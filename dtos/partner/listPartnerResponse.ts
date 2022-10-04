@@ -3,6 +3,7 @@ class PartnerList {
 	public id!: string;
 	public name!: string;
 	public code!: number;
+	public password!: string;
 	public email!: string;
 	public url!: string;
 }
