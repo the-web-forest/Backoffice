@@ -1,14 +1,16 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import NotificationService from "../../../helpers/NotificationService";
 import partnerDetail from "../../../dtos/partner/partnerDetail/partnerDetail.dto";
-import CreatePartnerUseCase from "../../../useCases/partnerUseCases/createPartnerUseCase/createPartnerUseCase";
 import Header from "../../../sections/header";
 import Sidebar from "../../../sections/sidebar";
 import { TreeList } from "../../../dtos/tree/listTreeResponse";
 import ListTreeUseCase from "../../../useCases/treeUseCases/listTreeUseCase/listTreeUseCase";
 import PartnerDetailUseCase from "../../../useCases/partnerUseCases/partnerDetailUseCase/partnerDetailUseCase";
+import UpdatePartnerUseCase from "../../../useCases/partnerUseCases/updatePartnerUseCase/updatePartnerUseCase";
+import TreeDetailUseCase from "../../../useCases/treeUseCases/treeDetailUseCase/treeDetailUseCase";
+import TreeDetailDTO from "../../../dtos/tree/detail/treeDetail.dto";
 
 interface DashboardPartnerDetailsProps {
 	id: string;
@@ -21,23 +23,50 @@ const DashboardPartnerDetails: NextPage<DashboardPartnerDetailsProps> = ({
 	const router = useRouter();
 	const [partner, setPartner] = useState<partnerDetail>(new partnerDetail({}));
 	const [treeRows, setTreeRows] = useState<TreeList[]>([]);
+	const [treeSelected, setTreeSelected] = useState<TreeList>(new TreeList());
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const [newPassword, setNewPassword] = useState<boolean>(false);
 	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [maxPage, setMaxPage] = useState<number>(1);
 
-	const loadTrees = async () => {
+	const loadTrees = (selectedTreeId: string) => {
 		do {
+			new TreeDetailUseCase().run(selectedTreeId).then((data) => {
+				let tree: TreeList = new TreeList();
+				tree.id = data.id;
+				tree.name = data.name;
+				tree.biome = data.biome;
+				tree.description = "";
+				tree.value = "";
+				setTreeSelected(tree);
+			});
 			new ListTreeUseCase().run(currentPage).then((data) => {
 				setMaxPage(data.totalPages);
 				setTreeRows([...treeRows, ...data.trees]);
 			});
 			setCurrentPage(currentPage + 1);
 		} while (maxPage > currentPage);
+		setTreeSelected(
+			treeRows.find((x) => {
+				if (x.id == selectedTreeId) return x;
+			}) ?? new TreeList()
+		);
+		setTreeRows([
+			...treeRows.filter((x) => {
+				if (x.id != selectedTreeId) return x;
+			}),
+		]);
 	};
 
-	useEffect(() => {
-		partnerDetailUseCase.run(id).then((data) => setPartner(data));
-		loadTrees();
+	useMemo(() => {
+		setMaxPage(1);
+		setCurrentPage(1);
+		if (partner.id == null) {
+			partnerDetailUseCase.run(id).then((data) => {
+				setPartner({ ...data, id: id });
+				if (treeRows.length == 0) loadTrees(data.tree);
+			});
+		}
 	}, []);
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -50,9 +79,6 @@ const DashboardPartnerDetails: NextPage<DashboardPartnerDetailsProps> = ({
 		}
 		if (!partner.email) {
 			formValidation += "Inform a valid Email value\n";
-		}
-		if (!partner.password) {
-			formValidation += "Inform a valid Password value\n";
 		}
 		if (!partner.url) {
 			formValidation += "Inform a valid URL value\n";
@@ -69,13 +95,13 @@ const DashboardPartnerDetails: NextPage<DashboardPartnerDetailsProps> = ({
 		}
 
 		setIsLoading(true);
-		new CreatePartnerUseCase()
+		new UpdatePartnerUseCase()
 			.run(partner)
 			.then((data) => {
 				NotificationService.successNotification(
-					"Created!",
-					"Tree Created Sucessfully!",
-					() => router.push("/dashboard/tree")
+					"Updated!",
+					"Partner Updated Sucessfully!",
+					() => router.push("/dashboard/partner")
 				);
 			})
 			.catch((err) => {
@@ -91,7 +117,9 @@ const DashboardPartnerDetails: NextPage<DashboardPartnerDetailsProps> = ({
 				<Sidebar />
 				<div className="flex flex-col w-screen m-5">
 					<div className="flex flex-row w-100 p-2 justify-between">
-						<p className="text-4xl font-bold">New Partner - {partner.name}</p>
+						<p className="text-4xl font-bold">
+							Update Partner - {partner.name}
+						</p>
 					</div>
 
 					<div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-3 h-auto mb-5">
@@ -141,28 +169,6 @@ const DashboardPartnerDetails: NextPage<DashboardPartnerDetailsProps> = ({
 										maxLength={50}
 									/>
 								</div>
-
-								<div className="w-1/4 m-5">
-									<label
-										className="block text-sm font-bold text-gray-700"
-										htmlFor="password"
-									>
-										Password
-									</label>
-
-									<input
-										required={true}
-										className="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-										type="password"
-										onChange={(e) =>
-											setPartner({ ...partner, password: e.target.value })
-										}
-										value={partner.password}
-										name="password"
-										id="password"
-										maxLength={50}
-									/>
-								</div>
 							</div>
 
 							<div className="flex flex-row">
@@ -200,29 +206,73 @@ const DashboardPartnerDetails: NextPage<DashboardPartnerDetailsProps> = ({
 									<select
 										required={true}
 										className="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-										onChange={(e) =>
-											setPartner({ ...partner, tree: e.target.value })
-										}
-										name="url"
-										id="url"
+										onChange={(e) => {
+											setTreeSelected(
+												treeRows.find((x) => {
+													if (x.id == e.target.value) return x;
+												}) ?? new TreeList()
+											);
+											setPartner({ ...partner, tree: e.target.value });
+										}}
+										name="tree"
+										id="tree"
 									>
-										<option value={partner.tree}>
-											{treeRows.find((x) => {if(x.id == partner.tree) return(x)})?.name} - {treeRows.find((x) => {if(x.id == partner.tree) return(x)})?.biome}
-										</option>
+										{treeSelected.value != undefined && (
+											<option value={partner.tree}>
+												{treeSelected.name} - {treeSelected.biome}
+											</option>
+										)}
 										{treeRows.map((x) => {
-											if(x.id != partner.tree)
-											{
+											if (x.id != partner.tree) {
 												return (
-														<option value={x.id}>
-															{x.name} - {x.biome}
-														</option>
-													);
+													<option value={x.id}>
+														{x.name} - {x.biome}
+													</option>
+												);
 											}
 										})}
 									</select>
 								</div>
 
-								<div className="w-1/2 m-5"></div>
+								<div className="flex items-center justify-center items-center m-5">
+									<input
+										required={false}
+										onChange={(e) => setNewPassword(e.target.checked)}
+										id="default-checkbox"
+										type="checkbox"
+										value=""
+										className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+									/>
+									<label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+										Create a new password
+									</label>
+								</div>
+							</div>
+							<div className="flex flex-row">
+								{newPassword ? (
+									<div className="w-1/4 m-5">
+										<label
+											className="block text-sm font-bold text-gray-700"
+											htmlFor="password"
+										>
+											Password
+										</label>
+
+										<input
+											required={true}
+											className="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+											type="password"
+											onChange={(e) => {
+												const value = e.target.value.replace(/\D/g, "");
+												setPartner({ ...partner, password: value });
+											}}
+											value={partner.password}
+											name="password"
+											id="password"
+											maxLength={50}
+										/>
+									</div>
+								) : null}
 							</div>
 
 							<div className="flex items-center justify-start gap-x-2 m-5">

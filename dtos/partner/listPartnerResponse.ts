@@ -4,6 +4,7 @@ class PartnerList {
 	public name!: string;
 	public code!: number;
 	public password!: string;
+	public deleted!: boolean;
 	public email!: string;
 	public url!: string;
 }

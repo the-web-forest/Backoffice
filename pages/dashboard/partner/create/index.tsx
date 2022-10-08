@@ -67,8 +67,8 @@ const DashboardPartnerDetails: NextPage = () => {
 			.then((data) => {
 				NotificationService.successNotification(
 					"Created!",
-					"Tree Created Sucessfully!",
-					() => router.push("/dashboard/tree")
+					"Partner Created Sucessfully!",
+					() => router.push("/dashboard/partners")
 				);
 			})
 			.catch((err) => {
@@ -147,9 +147,10 @@ const DashboardPartnerDetails: NextPage = () => {
 										required={true}
 										className="block w-full mt-1 border-gray-300 rounded-md shadow-sm placeholder:text-gray-400 placeholder:text-right focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
 										type="password"
-										onChange={(e) =>
-											setPartner({ ...partner, password: e.target.value })
-										}
+										onChange={(e) => {
+											const value = e.target.value.replace(/\D/g, "");
+											setPartner({ ...partner, password: value });
+										}}
 										value={partner.password}
 										name="password"
 										id="password"

@@ -6,6 +6,8 @@ import Sidebar from '../../../sections/sidebar'
 import { PartnerList } from '../../../dtos/partner/listPartnerResponse'
 import ListPartnerUseCase from '../../../useCases/partnerUseCases/listPartnerUseCase/listPartnerUseCase'
 import Paginator from '../../../components/paginator/paginator'
+import DeletePartnerUseCase from '../../../useCases/partnerUseCases/deletePartnerUseCase/deleteTreeUsecase'
+import NotificationService from '../../../helpers/NotificationService'
 
 const listPartnerUseCase = new ListPartnerUseCase();
 
@@ -38,12 +40,31 @@ const Dashboard: NextPage<DashboardProps> = ({ page } : DashboardProps) => {
     const openDeletePartnerModal = (treeId: string) => {
         const tree = rows.find(x => x.id === treeId)
         
-        /*if(tree) {
-            setTreeToDelete(tree)
+        if(tree) {
+            setPartnerToDelete(tree)
             setShowModal(true)
-        }*/
+        }
 
     }
+
+	const deletePartner = (partnerId : string) => {
+		new DeletePartnerUseCase()
+			.run(partnerId)
+			.then((res) => {
+				NotificationService.successNotification(
+					"Deleted!",
+					"Partner Deleted Sucessfully!"
+				);
+				loadPartners();
+				setShowModal(false);
+			})
+			.catch((err) => {
+				NotificationService.dangerNotification(
+					"Error!",
+					"Error on Delete Partner!"
+				);
+			});
+	};
     return (
 			<>
 				<div className="w-screen h-screen flex">
@@ -85,7 +106,7 @@ const Dashboard: NextPage<DashboardProps> = ({ page } : DashboardProps) => {
 												<button
 													className="bg-red-500 text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
 													type="button"
-													//onClick={() => deletePartner(PartnerToDelete.id)}
+													onClick={() => deletePartner(partnerToDelete.id)}
 												>
 													Delete
 												</button>
