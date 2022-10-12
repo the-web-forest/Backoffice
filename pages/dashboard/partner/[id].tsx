@@ -70,8 +70,6 @@ const DashboardPartnerDetails: NextPage<DashboardPartnerDetailsProps> = ({
 
 	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-
-		console.log(JSON.stringify(partner));
 		let formValidation = String("");
 		if (!partner.name) {
 			formValidation += "Inform a valid Name value\n";
