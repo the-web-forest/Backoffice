@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import NotificationService from "../../../helpers/NotificationService";
 import partnerDetail from "../../../dtos/partner/partnerDetail/partnerDetail.dto";
 import Header from "../../../sections/header";
@@ -10,7 +10,6 @@ import ListTreeUseCase from "../../../useCases/treeUseCases/listTreeUseCase/list
 import PartnerDetailUseCase from "../../../useCases/partnerUseCases/partnerDetailUseCase/partnerDetailUseCase";
 import UpdatePartnerUseCase from "../../../useCases/partnerUseCases/updatePartnerUseCase/updatePartnerUseCase";
 import TreeDetailUseCase from "../../../useCases/treeUseCases/treeDetailUseCase/treeDetailUseCase";
-import TreeDetailDTO from "../../../dtos/tree/detail/treeDetail.dto";
 
 interface DashboardPartnerDetailsProps {
 	id: string;
@@ -73,7 +72,7 @@ const DashboardPartnerDetails: NextPage<DashboardPartnerDetailsProps> = ({
 		event.preventDefault();
 
 		console.log(JSON.stringify(partner));
-		let formValidation = new String("");
+		let formValidation = String("");
 		if (!partner.name) {
 			formValidation += "Inform a valid Name value\n";
 		}

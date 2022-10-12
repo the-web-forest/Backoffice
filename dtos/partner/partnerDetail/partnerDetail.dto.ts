@@ -1,5 +1,5 @@
 
-export default class partnerDetail {
+export default class PartnerDetail {
 	public id!: string;
 	public name!: string;
 	public code!: number;
@@ -8,7 +8,7 @@ export default class partnerDetail {
 	public email!: string;
 	public url!: string;
 
-	constructor(data: Partial<partnerDetail>) {
+	constructor(data: Partial<PartnerDetail>) {
 		Object.assign(this, data);
 	}
 }

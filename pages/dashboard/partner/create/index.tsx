@@ -37,7 +37,7 @@ const DashboardPartnerDetails: NextPage = () => {
 		event.preventDefault();
 
 		console.log(JSON.stringify(partner));
-		let formValidation = new String("");
+		let formValidation = String("");
 		if (!partner.name) {
 			formValidation += "Inform a valid Name value\n";
 		}

@@ -34,6 +34,9 @@ const Dashboard: NextPage<DashboardProps> = ({ page } : DashboardProps) => {
 			if (!page) {
 				router.push("?page=" + currentPage);
 			}
+			else{
+				setCurrentPage(page);
+			}
 			loadPartners();
 		}, []);
 
