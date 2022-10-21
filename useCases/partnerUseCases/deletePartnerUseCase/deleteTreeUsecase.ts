@@ -1,6 +1,6 @@
-import HttpService from "../../services/httpService/httpService"
+import HttpService from "../../../services/httpService/httpService"
 
-export default class DeleteTreeUseCase {
+export default class DeletePartnerUseCase {
 
     private readonly httpService: HttpService
 
@@ -8,9 +8,9 @@ export default class DeleteTreeUseCase {
         this.httpService = new HttpService()
     }
 
-    public async run(treeId: string) {
+    public async run(partnerId: string) {
        
-        const request = await this.httpService.delete(`Trees/${treeId}`)
+        const request = await this.httpService.delete(`Partners/${partnerId}`)
 
         if(request.status != 200) {
             return Promise.reject(request.data)

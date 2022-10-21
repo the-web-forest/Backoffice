@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import Paginator from "../../../components/paginator/paginator";
 import Sidebar from "../../../sections/sidebar";
 import Header from "../../../sections/header";
-import ListTreeUseCase from "../../../useCases/listTreeUseCase/listTreeUseCase";
+import ListTreeUseCase from "../../../useCases/treeUseCases/listTreeUseCase/listTreeUseCase";
 import { TreeList } from "../../../dtos/tree/listTreeResponse";
 import CurrencyHelper from "../../../helpers/currencyHelper";
-import DeleteTreeUseCase from "../../../useCases/deleteTreeUseCase/deleteTreeUsecase";
+import DeleteTreeUseCase from "../../../useCases/treeUseCases/deleteTreeUseCase/deleteTreeUsecase";
 import NotificationService from "../../../helpers/NotificationService";
 
 const listUserUseCase = new ListTreeUseCase()
