@@ -14,15 +14,14 @@ interface TextEditorProps {
 
 async function RequestQuill(setQuillComponent: Function, setAwait: Function) {
 	setQuillComponent(dynamic((async () => await import("react-quill")), {ssr: false}));
-
 	await new Promise((resolve) => {setTimeout(() => {resolve("");}, 1000);});;
 	setAwait(true);
 }
 
 const TextEditor = ({ id, className, value, onChange }: TextEditorProps) => {
-	const [QuillComponent, setQuillComponent] = useState<ComponentType>();
+	const [QuillComponent, setQuillComponent] = useState<ComponentType|null>(null);
 	const [awaitQuill, setAwait] = useState<boolean>(false);
-	if (!awaitQuill && QuillComponent == undefined) {
+	if (!awaitQuill && QuillComponent == null) {
 		RequestQuill(setQuillComponent, setAwait);
 	}
 	if (!awaitQuill) {
@@ -33,16 +32,16 @@ const TextEditor = ({ id, className, value, onChange }: TextEditorProps) => {
 		);
 	} else {
 		return (
-			<>
-				<QuillComponent
-					id={id}
-					className={className}
-					theme="snow"
-					value={value}
-					onChange={onChange}
-				></QuillComponent>
-			</>
-		);
+				<>
+					<ReactQuill
+						id={id}
+						className={className}
+						theme="snow"
+						value={value}
+						onChange={onChange}
+					></ReactQuill>
+				</>
+			);
 	}
 };
 
