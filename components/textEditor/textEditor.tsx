@@ -1,4 +1,4 @@
-import React, { ComponentClass, ComponentType, useState } from "react";
+import React, { ComponentType, useState } from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import SpinLoader from "../spinLoader/spinLoader";
